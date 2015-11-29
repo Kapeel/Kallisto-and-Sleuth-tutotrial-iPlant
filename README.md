@@ -1,7 +1,7 @@
-# Kallisto-and-Sleuth-tutotrial-iPlant
-Using Kallisto and Sleuth tools for diffrential expression aanlysis in DE
+# Kallisto-and-Sleuth-tutorial-iPlant 
+Using Kallisto and Sleuth tools for diffrential expression analysis in iPlant Discovery Environment
 
-# kallisto and sleuth walkthrough
+
 
 This is a walk-through for [kallisto](http://pachterlab.github.io/kallisto) and
 [sleuth](http://pachterlab.github.io/sleuth). It assumes that you are running on the
