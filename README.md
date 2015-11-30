@@ -123,8 +123,7 @@ what follows we include the output that should appear with each command).
 A list of paths to the kallisto results indexed by the sample IDs is collated with
 
 ```{r}
-kal_dirs <- sapply(sample_id, function(id) file.path(base_dir, "results",
-  "paired", id, "kallisto"))
+kal_dirs <- sapply(sample_id, function(id) file.path(base_dir, "results", "paired", id, "kallisto"))
 kal_dirs
 ```
 ```{r}
