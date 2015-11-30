@@ -101,10 +101,42 @@ SRR493371 SRX145667 23544153 HOXA1KD hiseq C
 Let's load this file in R:
 
 ```{r}
-s2c <- read.table(file.path(base_dir, 'metadata', 'hiseq_info.txt'),
-  header = TRUE, stringsAsFactors = FALSE)
+s2c <- read.table(file.path(base_dir, "hiseq_info.txt"), header = TRUE, stringsAsFactors=FALSE)
+s2c <- dplyr::select(s2c, sample = run_accession, condition)
+s2c
 ```
+```{r}
+##      sample condition
+## 1 SRR493366  scramble
+## 2 SRR493367  scramble
+## 3 SRR493368  scramble
+## 4 SRR493369   HOXA1KD
+## 5 SRR493370   HOXA1KD
+## 6 SRR493371   HOXA1KD
+```
+Now, we must enter the directories into a column in the table describing the experiment. This column must be labeled path, otherwise sleuth will throw an error. This is to ensure that the user can check which samples correspond to which kallisto runs
 
+```{r}
+s2c <- dplyr::mutate(s2c, path = kal_dirs)
+```
+The user should check whether or not the order is correct. In this case, the kallisto output is correctly matched with the sample identifiers.
+```{r}
+print(s2c)
+##      sample condition
+## 1 SRR493366  scramble
+## 2 SRR493367  scramble
+## 3 SRR493368  scramble
+## 4 SRR493369   HOXA1KD
+## 5 SRR493370   HOXA1KD
+## 6 SRR493371   HOXA1KD
+##                                                                     path
+## 1 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493366/kallisto
+## 2 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493367/kallisto
+## 3 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493368/kallisto
+## 4 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493369/kallisto
+## 5 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493370/kallisto
+## 6 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493371/kallisto
+```
 ### locating kallisto output
 
 Next, we have to tell `sleuth` where all the kallisto output is. If you've
@@ -131,8 +163,22 @@ A list of paths to the kallisto results indexed by the sample IDs is collated wi
 ```{r}
 kal_dirs <- sapply(sample_id, function(id) file.path(base_dir, "results",
   "paired", id, "kallisto"))
+kal_dirs
 ```
-
+```{r}
+##                                                                SRR493366 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493366/kallisto" 
+##                                                                SRR493367 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493367/kallisto" 
+##                                                                SRR493368 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493368/kallisto" 
+##                                                                SRR493369 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493369/kallisto" 
+##                                                                SRR493370 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493370/kallisto" 
+##                                                                SRR493371 
+## "~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493371/kallisto"
+```
 ### getting gene names
 
 Since the gene names are not automatically in the annotation, we need to get
@@ -208,5 +254,3 @@ sleuth live with:
 ```{r}
 sleuth_live(so)
 ```
-
-Let's chat about what sort of things to look out for.
