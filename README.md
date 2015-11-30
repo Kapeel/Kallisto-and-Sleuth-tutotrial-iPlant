@@ -108,7 +108,7 @@ simply expecting a character array pointing to all the directories.
 Next get the list of sample IDs with
 
 ```{r}
-sample_id <- dir(file.path(base_dir, "results", "paired"))
+sample_id <- dir(file.path(base_dir,"results"))
 ```
 
 The result can be displayed by typing
