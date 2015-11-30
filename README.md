@@ -19,13 +19,17 @@ The human fibroblast RNA-Seq data for the paper is available on GEO at accession
 Download the kallisto qaunt output to your home directory:
 ```{r}
 wget http://de.iplantcollaborative.org/dl/d/9171661C-3746-4DD7-87D0-078B76D28CFC/kallisto_qaunt_human_RNAseq_output.zip
+```
 
+Unzip the file:
+```{r}
+unzip kallisto_qaunt_human_RNAseq_output.zip
 ```
 Start up RStudio and navigate to `kallisto_qaunt_human_RNAseq_output` subdirectory in the directory we've been
 working in.
 
 ```{r}
-setwd('~/analysis/bears_iplant/R')
+setwd('~/Desktop/kallisto_qaunt_human_RNAseq_output')
 ```
 
 First, let's install `sleuth` and `biomaRt`, a tool that we will use later for
