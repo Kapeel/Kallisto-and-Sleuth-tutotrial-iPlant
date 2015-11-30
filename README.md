@@ -42,9 +42,7 @@ biocLite("pachterlab/sleuth")
 biocLite("biomaRt")
 ```
 
-Open a new file if you would like to type the commands and add them as we go
-along, or you can simply open `analysis.R` and follow along. You can execute a
-line in Rstudio using `ctrl + enter`.
+You can execute a line in Rstudio using `ctrl + enter`.
 
 Next, load sleuth:
 
@@ -56,15 +54,14 @@ Though not required, I also suggest loading a package called `cowplot` which mak
 default much more aesthetically pleasing:
 
 ```{r}
-# install.packages('cowplot')
-# if it isn't installed
+install.packages('cowplot')
 library('cowplot')
 ```
 
 Let's also set the base working directory:
 
 ```{r}
-base_dir <- '..'
+base_dir <- '~/Desktop/kallisto_qaunt_human_RNAseq_output'
 ```
 
 From here on, all the commands will be in R unless otherwise specified.
@@ -90,20 +87,21 @@ experimental condition.
 This is what the file looks like (from the terminal):
 
 ```{sh}
-cat metadata/sample_info.tsv
-sample  condition
-SRR493366       scramble
-SRR493367       scramble
-SRR493368       scramble
-SRR493369       HOXA1KD
-SRR493370       HOXA1KD
-SRR493371       HOXA1KD
+more hiseq_info.txt
+run_accession experiment_accession spots condition sequencer sample
+SRR493366 SRX145662 15117833 scramble hiseq A
+SRR493367 SRX145663 17433672 scramble hiseq B
+SRR493368 SRX145664 21830449 scramble hiseq C
+SRR493369 SRX145665 17916102 HOXA1KD hiseq A
+SRR493370 SRX145666 20141813 HOXA1KD hiseq B
+SRR493371 SRX145667 23544153 HOXA1KD hiseq C
+
 ```
 
 Let's load this file in R:
 
 ```{r}
-s2c <- read.table(file.path(base_dir, 'metadata', 'sample_info.tsv'),
+s2c <- read.table(file.path(base_dir, 'metadata', 'hiseq_info.txt'),
   header = TRUE, stringsAsFactors = FALSE)
 ```
 
