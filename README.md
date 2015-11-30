@@ -98,8 +98,6 @@ SRR493371 SRX145667 23544153 HOXA1KD hiseq C
 
 ```
 
-Let's load this file in R:
-
 
 ### locating kallisto output
 
