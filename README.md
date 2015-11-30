@@ -179,18 +179,6 @@ print(s2c)
 ## 5 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493370/kallisto
 ## 6 ~/Downloads/cuffdiff2_data_kallisto_results/results/SRR493371/kallisto
 ```
-### getting gene names
-
-Since the gene names are not automatically in the annotation, we need to get
-them from elsewhere. `biomaRt` provide a good way of getting the mappings for
-Ensembl annotations.
-
-```{r}
-# get the gene names using biomaRt
-mart <- biomaRt::useMart(biomart = "ensembl", dataset = "hsapiens_gene_ensembl")
-t2g <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name"), mart = mart)
-t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id,ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
-```
 
 ### fitting the model
 
@@ -202,7 +190,7 @@ the sleuth response error measurement model and (3) perform differential analyis
 First type
 
 ```{r}
-so <- sleuth_prep(kal_dirs, s2c, ~ condition, target_mapping = t2g)
+so <- sleuth_prep(s2c, ~ condition)
 ## reading in kallisto results
 ## ......
 ## normalizing est_counts
@@ -240,7 +228,44 @@ models(so)
 ## tests:
 ##  conditionscramble
 ```
+### getting gene names
 
+At this point the sleuth object constructed from the kallisto runs has information about the data, the experimental design, the kallisto estimates, the model fit, and the testing. In other words it contains the entire analysis of the data. There is, however, one piece of information that can be useful to add in, but that is optional. In reading the kallisto output sleuth has no information about genes, but this can be added allowing for searching and analysis by gene instead of transcript.
+
+Since the example was constructed with the ENSEMBL human transcriptome, we will add gene names from ENSEMBL using biomaRt (there are other ways to do this as well):
+
+First, install biomaRt with
+```{r}
+source("http://bioconductor.org/biocLite.R")
+biocLite("biomaRt")
+```
+Then collect gene names with 
+```{r}
+# get the gene names using biomaRt
+mart <- biomaRt::useMart(biomart = "ensembl", dataset = "hsapiens_gene_ensembl")
+```
+and add them into the sleuth table with
+```{r}
+t2g <- biomaRt::getBM(attributes = c("ensembl_transcript_id", "ensembl_gene_id","external_gene_name"), mart = mart)
+t2g <- dplyr::rename(t2g, target_id = ensembl_transcript_id,ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+so <- sleuth_prep(s2c, ~ condition, target_mapping = t2g)
+```
+```{r}
+## reading in kallisto results
+## ......
+## normalizing est_counts
+## 50844 targets passed the filter
+## normalizing tpm
+## merging in metadata
+## normalizing bootstrap samples
+## summarizing bootstraps
+```
+```{r}
+so <- sleuth_fit(so)
+## shrinkage estimation
+## computing variance of betas
+so <- sleuth_wt(so, which_beta = 'conditionscramble')
+```
 ### interactive analysis
 
 Sleuth provides many different ways visualize your data. Most visualizations are
