@@ -21,8 +21,10 @@ Download the kallisto qaunt output to your home directory:
 wget http://de.iplantcollaborative.org/dl/d/9171661C-3746-4DD7-87D0-078B76D28CFC/kallisto_qaunt_human_RNAseq_output.zip
 ```
 
-Unzip the file:
+create a folder and Unzip the output files:
 ```{r}
+mkdir kallisto_qaunt_human_RNAseq_output
+cd kallisto_qaunt_human_RNAseq_output
 unzip kallisto_qaunt_human_RNAseq_output.zip
 ```
 Start up RStudio and navigate to `kallisto_qaunt_human_RNAseq_output`  directory we be
