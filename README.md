@@ -25,8 +25,8 @@ Unzip the file:
 ```{r}
 unzip kallisto_qaunt_human_RNAseq_output.zip
 ```
-Start up RStudio and navigate to `kallisto_qaunt_human_RNAseq_output` subdirectory in the directory we've been
-working in.
+Start up RStudio and navigate to `kallisto_qaunt_human_RNAseq_output`  directory we be
+working .
 
 ```{r}
 setwd('~/Desktop/kallisto_qaunt_human_RNAseq_output')
