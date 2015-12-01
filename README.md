@@ -16,16 +16,16 @@ The human fibroblast RNA-Seq data for the paper is available on GEO at accession
 
 ## preliminaries
 
-create a folder and Unzip the output files:
+create a folder:
 ```{r}
 mkdir kallisto_qaunt_human_RNAseq_output
 cd kallisto_qaunt_human_RNAseq_output
-unzip kallisto_qaunt_human_RNAseq_output.zip
 ```
 
-Download the kallisto qaunt output to your home directory:
+Download the kallisto qaunt output to your home directory and unzip:
 ```{r}
 wget http://de.iplantcollaborative.org/dl/d/9171661C-3746-4DD7-87D0-078B76D28CFC/kallisto_qaunt_human_RNAseq_output.zip
+unzip kallisto_qaunt_human_RNAseq_output.zip
 ```
 
 
