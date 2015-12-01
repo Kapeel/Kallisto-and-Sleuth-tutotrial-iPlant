@@ -43,7 +43,6 @@ getting the gene names:
 source('http://bioconductor.org/biocLite.R')
 biocLite("devtools")
 biocLite("pachterlab/sleuth")
-biocLite("biomaRt")
 ```
 
 You can execute a line in Rstudio using `ctrl + enter`.
