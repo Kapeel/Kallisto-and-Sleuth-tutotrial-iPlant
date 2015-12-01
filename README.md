@@ -215,7 +215,7 @@ so <- sleuth_fit(so)
 and finally
 
 ```{r}
-so <- sleuth_test(so, which_beta = 'conditionscramble')
+so <- sleuth_wt(so, 'conditionscramble')
 ```
 
 In general, one can see the possible tests that could be performed using the
